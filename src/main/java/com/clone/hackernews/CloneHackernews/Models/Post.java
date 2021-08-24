@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +25,8 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comment;
     private String url;
+    @CreationTimestamp
+    private Timestamp create_at;
 
     public Post() {
 
@@ -39,6 +43,14 @@ public class Post {
 
     public void setComment(List<Comment> comment) {
         this.comment = comment;
+    }
+
+    public Timestamp getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(Timestamp create_at) {
+        this.create_at = create_at;
     }
 
     public List<Comment> getComment() {
