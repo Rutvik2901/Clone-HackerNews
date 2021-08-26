@@ -1,5 +1,6 @@
 package com.clone.hackernews.CloneHackernews.Services;
 
+import com.clone.hackernews.CloneHackernews.Models.Comment;
 import com.clone.hackernews.CloneHackernews.Models.Post;
 import com.clone.hackernews.CloneHackernews.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,9 @@ public class PostService {
         Post postById = postRepository.findById(UUID.fromString(postId)).get();
         postById.setVotes(postById.getVotes() + 1);
         postRepository.save(postById);
+    }
+
+    public List<Comment> getComment(String postId) {
+        return postRepository.findById(UUID.fromString(postId)).get().getComment();
     }
 }

@@ -1,5 +1,6 @@
 package com.clone.hackernews.CloneHackernews.Controllers;
 
+import com.clone.hackernews.CloneHackernews.Models.Comment;
 import com.clone.hackernews.CloneHackernews.Models.Post;
 import com.clone.hackernews.CloneHackernews.Services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,11 @@ public class PostController {
     }
 
     @GetMapping("/post/{id}")
-    public Object getPostById(@RequestParam UUID id){
+    public Object getPostById(@RequestParam UUID id) {
         Optional<Post> postById = postService.getPostById(id);
         if (postById.isPresent()) {
-        return postById.get();
-        }
-        else{
+            return postById.get();
+        } else {
             return new ResponseEntity<>("post not Exists", HttpStatus.BAD_REQUEST);
         }
     }
@@ -40,7 +40,13 @@ public class PostController {
 
     @CrossOrigin(value = "http://localhost:3000")
     @PutMapping(value = "/like/post/{postId}")
-    public void likePost(@PathVariable String postId){
+    public void likePost(@PathVariable String postId) {
         postService.likePost(postId);
+    }
+
+    @CrossOrigin(value = "http://localhost:3000")
+    @GetMapping(value = "/comment/post/{postId}")
+    public List<Comment> getComment(@PathVariable String postId) {
+        return postService.getComment(postId);
     }
 }

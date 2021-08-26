@@ -29,6 +29,7 @@ public class Comment {
     public Comment() {
 
     }
+
     public Comment(UUID id, String description, Timestamp timeZone) {
         this.id = id;
         this.description = description;
