@@ -23,12 +23,15 @@ public class CommentService {
     public void addComment(String postId, String parentId, String description) {
         Comment newComment = new Comment();
 
-        Optional<Comment> commentById = getCommentById(UUID.fromString(parentId));
-
-        if (parentId != null && commentById.isPresent()) {
-            newComment.setParent(commentById.get());
-        } else {
+        if (parentId == null) {
             newComment.setParent(null);
+        } else {
+
+            Optional<Comment> commentById = getCommentById(UUID.fromString(parentId));
+
+            if (parentId != null && commentById.isPresent()) {
+                newComment.setParent(commentById.get());
+            }
         }
         newComment.setDescription(description);
 
