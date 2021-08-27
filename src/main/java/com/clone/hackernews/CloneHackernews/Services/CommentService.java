@@ -6,8 +6,6 @@ import com.clone.hackernews.CloneHackernews.Repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,9 +27,7 @@ public class CommentService {
 
             Optional<Comment> commentById = getCommentById(UUID.fromString(parentId));
 
-            if (parentId != null && commentById.isPresent()) {
-                newComment.setParent(commentById.get());
-            }
+            commentById.ifPresent(newComment::setParent);
         }
         newComment.setDescription(description);
 
