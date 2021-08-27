@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,11 +23,13 @@ public class Comment {
     private Post post;
     @OneToOne(cascade = CascadeType.ALL)
     private Comment parent;
+    @CreationTimestamp
     private Timestamp timeZone;
 
     public Comment() {
 
     }
+
     public Comment(UUID id, String description, Timestamp timeZone) {
         this.id = id;
         this.description = description;
