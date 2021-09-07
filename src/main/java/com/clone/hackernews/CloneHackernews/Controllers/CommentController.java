@@ -11,8 +11,9 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping(value = { "/comment/post/{postId}", "/comment/post/{postId}/parent/{parentId}" })
-    public void addComment(@PathVariable String postId, @PathVariable(required = false) String parentId,
-            @RequestBody String description) {
+    public void addComment(@PathVariable String postId,
+                           @PathVariable(required = false) String parentId,
+                           @RequestBody String description) {
         commentService.addComment(postId, parentId, description);
     }
 }

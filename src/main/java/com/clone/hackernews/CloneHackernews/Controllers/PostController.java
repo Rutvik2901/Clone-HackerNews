@@ -19,8 +19,18 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/post")
-    public List<Post> getAllPost() {
-        return postService.getAllPost();
+    public List<Post> getAllPost(
+            @RequestParam(required = false) Optional<String> search,
+            @RequestParam(required = false) Optional<String> older,
+            @RequestParam(required = false) Optional<String> votes) {
+        if (search.isPresent()) {
+            return postService.findBySearch(search.get());
+        } else if (votes.isPresent()) {
+            return postService.findAllByVotes();
+        } else if (older.isPresent()) {
+            return postService.getAllPost(true);
+        }
+        return postService.getAllPost(false);
     }
 
     @GetMapping("/post/{id}")
@@ -42,6 +52,12 @@ public class PostController {
     @PutMapping(value = "/like/post/{postId}")
     public void likePost(@PathVariable String postId) {
         postService.likePost(postId);
+    }
+
+    @CrossOrigin(value = "http://localhost:3000")
+    @PutMapping(value = "/dislike/post/{postId}")
+    public void dislikePost(@PathVariable String postId) {
+        postService.dislikePost(postId);
     }
 
     @CrossOrigin(value = "http://localhost:3000")

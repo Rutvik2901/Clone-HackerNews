@@ -1,9 +1,6 @@
 package com.clone.hackernews.CloneHackernews.Models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -18,6 +15,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String title;
+    @Column(length = 8000)
     private String description;
     private String author;
     private int votes;
@@ -26,11 +24,12 @@ public class Post {
     private List<Comment> comment;
     private String url;
     @CreationTimestamp
-    private Timestamp create_at;
+    private Timestamp createdAt;
 
     public Post() {
 
     }
+
     public Post(UUID id, String title, String description, String author, int votes, String url) {
         this.id = id;
         this.title = title;
@@ -45,12 +44,12 @@ public class Post {
         this.comment = comment;
     }
 
-    public Timestamp getCreate_at() {
-        return create_at;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreate_at(Timestamp create_at) {
-        this.create_at = create_at;
+    public void setCreatedAt(Timestamp create_at) {
+        this.createdAt = create_at;
     }
 
     public List<Comment> getComment() {
