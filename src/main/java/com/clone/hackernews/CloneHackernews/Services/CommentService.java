@@ -23,9 +23,9 @@ public class CommentService {
     public void addComment(String postId, String parentId, String description) {
         Comment newComment = new Comment();
 
-        Optional<Comment> commentById = getCommentById(UUID.fromString(parentId));
-
-        if (parentId != null && commentById.isPresent()) {
+        if(parentId != null) {
+            Optional<Comment> commentById = getCommentById(UUID.fromString(parentId));
+            if (commentById.isPresent())
             newComment.setParent(commentById.get());
         } else {
             newComment.setParent(null);
