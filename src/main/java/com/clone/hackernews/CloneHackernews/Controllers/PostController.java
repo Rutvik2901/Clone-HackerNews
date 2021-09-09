@@ -19,8 +19,7 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/post")
-    public List<Post> getAllPost(
-            @RequestParam(required = false) Optional<String> search,
+    public List<Post> getAllPost(@RequestParam(required = false) Optional<String> search,
             @RequestParam(required = false) Optional<String> older,
             @RequestParam(required = false) Optional<String> votes) {
         if (search.isPresent()) {
@@ -48,19 +47,16 @@ public class PostController {
         postService.savePost(post);
     }
 
-    @CrossOrigin(value = {"http://localhost:3000", "https://hackernews-clone-rutvik.herokuapp.com"})
     @PutMapping(value = "/like/post/{postId}")
     public void likePost(@PathVariable String postId) {
         postService.likePost(postId);
     }
 
-    @CrossOrigin(value = {"http://localhost:3000", "https://hackernews-clone-rutvik.herokuapp.com"})
     @PutMapping(value = "/dislike/post/{postId}")
     public void dislikePost(@PathVariable String postId) {
         postService.dislikePost(postId);
     }
 
-    @CrossOrigin(value = {"http://localhost:3000", "https://hackernews-clone-rutvik.herokuapp.com"})
     @GetMapping(value = "/comment/post/{postId}")
     public List<Comment> getComment(@PathVariable String postId) {
         return postService.getComment(postId);
